@@ -22,6 +22,7 @@ import DateItem from './DateItem'
 import MetadataItem from './Metadataitem'
 import Spinner from './Spinner'
 import RenderError from './RenderError'
+import { config } from '@/lib/config'
 
 export default function RepoDetails() {
   const [repo, setRepo] = useState({})
@@ -33,14 +34,14 @@ export default function RepoDetails() {
   useEffect(() => {
     //instantiate octokit
     const octokit = new Octokit({
-      auth: import.meta.env.VITE_ACCESS_TOKEN,
+      auth: config.accessToken,
     })
     //Definne function that fetch repositiory
     const getRepo = async () => {
       setIsLoading(true)
       try {
         const repo = await octokit.request('GET /repos/{owner}/{repo}', {
-          owner: import.meta.env.VITE_USERNAME,
+          owner: config.username,
           repo: repoName,
           headers: {
             'X-GitHub-Api-Version': '2022-11-28',

@@ -7,6 +7,7 @@ import { Octokit, RequestError } from 'octokit'
 import NotFound from './components/NotFound'
 import ErrorBoundry from './components/ErrorBoundry'
 import TestErrorBoundary from './components/TestErrorBoundary'
+import { config } from './lib/config'
 
 function App() {
   const [repoList, setRepoList] = useState([])
@@ -16,7 +17,7 @@ function App() {
   useEffect(() => {
     //instantiate octokit
     const octokit = new Octokit({
-      auth: import.meta.env.VITE_ACCESS_TOKEN,
+      auth: config.accessToken,
     })
 
     //define function to fetch repositories
@@ -24,7 +25,7 @@ function App() {
       setIsLoading(true)
       try {
         const repos = await octokit.paginate('GET /users/{username}/repos', {
-          username: import.meta.env.VITE_USERNAME,
+          username: config.username,
           per_page: 100,
           headers: {
             'X-GitHub-Api-Version': '2022-11-28',

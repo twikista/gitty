@@ -12,7 +12,6 @@ export default function ReposList({ repoList, isLoading, error }) {
   const [currentPage, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState('')
   const reposPerPage = 10
-
   const searchResult = repoList.filter((repo) =>
     repo.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
@@ -33,6 +32,7 @@ export default function ReposList({ repoList, isLoading, error }) {
 
   //conditionally render error
   if (error) {
+    console.log(error)
     return (
       <RenderError
         errorMessage='Something went wrong. Try again'
