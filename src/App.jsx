@@ -35,8 +35,10 @@ function App() {
         setRepoList(repos)
         setIsLoading(false)
       } catch (error) {
+        console.log(error)
         if (error instanceof RequestError) {
           setError(error.message)
+          console.log(error.message)
           setIsLoading(false)
         } else {
           // handle all other errors
